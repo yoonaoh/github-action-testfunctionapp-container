@@ -22,15 +22,15 @@ jobs:
     - name: Log in to registry
       uses: docker/login-action@v1
       with:
-        registry: https://mcr.microsoft.com/
-        username: ${{ secrets.AzureAppService_ContainerUsername_0d0431db9c654ef88202b01026d3f507 }}
-        password: ${{ secrets.AzureAppService_ContainerPassword_31af4c99c231478a96b7db8579853da9 }}
+        registry: https://yoonaohacr.azurecr.io/
+        username: ${{ secrets.AzureAppService_ContainerUsername_a22e55bcefbd4bdca69794862fd6ea1c }}
+        password: ${{ secrets.AzureAppService_ContainerPassword_236e7bdefea34045b0574772bbb9e198 }}
 
     - name: Build and push container image to registry
       uses: docker/build-push-action@v2
       with:
         push: true
-        tags: mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_0d0431db9c654ef88202b01026d3f507 }}/azure-functions/node:${{ github.sha }}
+        tags: yoonaohacr.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_a22e55bcefbd4bdca69794862fd6ea1c }}/testfunctionapp:${{ github.sha }}
         file: ./Dockerfile
 
   deploy:
@@ -47,5 +47,5 @@ jobs:
       with:
         app-name: 'yo-container-function-app'
         slot-name: 'production'
-        publish-profile: ${{ secrets.AzureAppService_PublishProfile_9a8de363bec54c3d9fcf5a70ce53991e }}
-        images: 'mcr.microsoft.com/${{ secrets.AzureAppService_ContainerUsername_0d0431db9c654ef88202b01026d3f507 }}/azure-functions/node:${{ github.sha }}'
+        publish-profile: ${{ secrets.AzureAppService_PublishProfile_fa66d3bdc7bc428bbada5ad27af039ca }}
+        images: 'yoonaohacr.azurecr.io/${{ secrets.AzureAppService_ContainerUsername_a22e55bcefbd4bdca69794862fd6ea1c }}/testfunctionapp:${{ github.sha }}'
